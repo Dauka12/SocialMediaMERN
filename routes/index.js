@@ -1,14 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const UserController = require('../controllers');
 const uploadDestination = 'uploads';
 
 const storage = multer.diskStorage({
-    destination:
-})
+    destination: uploadDestination,
+    filename: function (req, res, cb) {
+        cb(null, file.originalName)
+    }
+});
 
-router.get('/register', (req, res) => {
-    res.send('/register: works!')
-})
+const uploads = multer({storage: storage})
 
+router.post('/register', UserController.register)
+router.post('/login', UserController.login)
+router.get('/current', UserController.current)
+router.post('/users/:id', UserController.getUserById)
+router.put('/users/:id', UserController.updateUser)
 module.exports = router;
