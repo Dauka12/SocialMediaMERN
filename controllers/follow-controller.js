@@ -36,7 +36,7 @@ const FollowController = {
     unfollowUser: async (req, res) => {
         const { followingId } = req.params;
         const userId = req.user.userId;
-
+ 
         try {
             const existingFollow = await prisma.follows.findFirst({
                 where: {
